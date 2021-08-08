@@ -85,7 +85,7 @@ class Server(
 
     init {
         try {
-            if (!isAvailableEpoll) {
+            if (isAvailableEpoll) {
                 logger.debug("Not on windows environment, utilizing epoll...")
             }
             bootstrap = Bootstrap().channel(
@@ -138,7 +138,9 @@ class Server(
 
     fun waitShutdown() {
         shutdown = true
-        // sessions.forEach
+        sessions.forEach { (_, session) ->
+            // TODO
+        }
     }
 
     private fun receivePacket(): Boolean {
