@@ -25,6 +25,7 @@ package me.alvin0319.raklib.server
 
 import com.koloboke.collect.map.hash.HashIntObjMaps
 import com.koloboke.collect.map.hash.HashObjLongMaps
+import com.koloboke.collect.map.hash.HashObjObjMaps
 import io.netty.bootstrap.Bootstrap
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.PooledByteBufAllocator
@@ -50,9 +51,9 @@ class Server(
     val eventListener: ServerEventListener
 ) : ServerInterface, ChannelHandler {
 
-    val logger: Logger = LoggerFactory.getLogger(this::class.java)
-
     val bootstrap: Bootstrap
+
+    val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     val isAvailableEpoll: Boolean = Epoll.isAvailable()
 
@@ -63,6 +64,7 @@ class Server(
     var receiveBytes: Int = 0
     var sendBytes: Int = 0
 
+    val sessionsByAddress: MutableMap<InetSocketAddress, Session> = HashObjObjMaps.newMutableMap()
     val sessions: MutableMap<Int, Session> = HashIntObjMaps.newMutableMap()
 
     val rawPacketFilters: List<Regex> = mutableListOf()
@@ -82,6 +84,69 @@ class Server(
     val rakNetTimeMS: Long = System.currentTimeMillis() - startTimeMs
 
     val port: Int = address.port
+
+    /*
+    /** @var Socket */
+	protected $socket;
+
+	/** @var \Logger */
+	protected $logger;
+
+	/** @var int */
+	protected $serverId;
+
+	/** @var int */
+	protected $receiveBytes = 0;
+	/** @var int */
+	protected $sendBytes = 0;
+
+	/** @var Session[] */
+	protected $sessionsByAddress = [];
+	/** @var Session[] */
+	protected $sessions = [];
+
+	/** @var UnconnectedMessageHandler */
+	protected $unconnectedMessageHandler;
+	/** @var string */
+	protected $name = "";
+
+	/** @var int */
+	protected $packetLimit = 200;
+
+	/** @var bool */
+	protected $shutdown = false;
+
+	/** @var int */
+	protected $ticks = 0;
+
+	/** @var int[] string (address) => int (unblock time) */
+	protected $block = [];
+	/** @var int[] string (address) => int (number of packets) */
+	protected $ipSec = [];
+
+	/** @var string[] regex filters used to block out unwanted raw packets */
+	protected $rawPacketFilters = [];
+
+	/** @var bool */
+	public $portChecking = false;
+
+	/** @var int */
+	protected $startTimeMS;
+
+	/** @var int */
+	protected $maxMtuSize;
+
+	/** @var int */
+	protected $nextSessionId = 0;
+
+	/** @var ServerEventSource */
+	private $eventSource;
+	/** @var ServerEventListener */
+	private $eventListener;
+
+	/** @var ExceptionTraceCleaner */
+	private $traceCleaner;
+     */
 
     init {
         try {

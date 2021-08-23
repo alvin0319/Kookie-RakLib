@@ -21,28 +21,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.5.21'
-}
+package me.alvin0319.raklib.server
 
-group 'me.alvin0319.raklib'
-version '1.0-SNAPSHOT'
+class UnconnectedMessageHandler(
+    val server: Server,
+    val protocolAcceptor: ProtocolAcceptor
+) {
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.21"
-    implementation "io.netty:netty-handler:4.1.66.Final"
-    implementation "io.netty:netty-transport-native-epoll:4.1.6.Final"
-
-    implementation "org.slf4j:slf4j-api:1.7.32"
-    implementation "ch.qos.logback:logback-classic:1.2.5"
-    implementation "org.fusesource.jansi:jansi:1.18"
-
-    implementation "com.koloboke:koloboke-impl-common-jdk8:1.0.0"
-    implementation "com.koloboke:koloboke-impl-jdk8:1.0.0"
-    implementation "com.koloboke:koloboke-api-jdk8:1.0.0"
-    implementation "com.google.guava:guava:30.1.1-jre"
+    val packetPool: Any? = null // TODO
 }
